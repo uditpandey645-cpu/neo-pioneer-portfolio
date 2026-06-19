@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ParticleField } from "@/components/portfolio/ParticleField";
 import { Typing } from "@/components/portfolio/Typing";
 import { HoloHelmet } from "@/components/portfolio/HoloHelmet";
+import { ResumeModal } from "@/components/portfolio/ResumeModal";
 import { Counter } from "@/components/portfolio/Counter";
 import { toast } from "sonner";
 import uditAsset from "@/assets/udit.jpg.asset.json";
@@ -127,8 +128,10 @@ function Nav() {
 }
 
 function Hero() {
+  const [resumeOpen, setResumeOpen] = useState(false);
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-28 pb-20 px-4">
+      <ResumeModal open={resumeOpen} onClose={() => setResumeOpen(false)} url={resumeAsset.url} />
       <div className="absolute inset-0 -z-10" style={{ background: "var(--gradient-hero)" }} />
       <div className="mx-auto max-w-6xl grid md:grid-cols-[1.2fr_1fr] gap-12 items-center">
         <div>
@@ -153,9 +156,9 @@ function Hero() {
             <a href="#projects" className="group inline-flex items-center gap-2 bg-[color:var(--cyan)] text-[color:var(--primary-foreground)] px-6 py-3 rounded-full font-display tracking-widest text-xs hover:glow-cyan transition">
               VIEW PROJECTS <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
             </a>
-            <a href={resumeAsset.url} download className="glass inline-flex items-center gap-2 px-6 py-3 rounded-full font-display tracking-widest text-xs hover:glow-cyan transition">
-              <Download className="w-4 h-4" /> RESUME
-            </a>
+            <button type="button" onClick={() => setResumeOpen(true)} className="glass inline-flex items-center gap-2 px-6 py-3 rounded-full font-display tracking-widest text-xs hover:glow-cyan transition">
+              <Eye className="w-4 h-4" /> RESUME
+            </button>
             <a href="#contact" className="glass-iron inline-flex items-center gap-2 px-6 py-3 rounded-full font-display tracking-widest text-xs hover:glow-iron transition">
               <Mail className="w-4 h-4" /> CONTACT
             </a>
