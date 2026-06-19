@@ -8,6 +8,7 @@ import { HoloHelmet } from "@/components/portfolio/HoloHelmet";
 import { Counter } from "@/components/portfolio/Counter";
 import { toast } from "sonner";
 import uditAsset from "@/assets/udit.jpg.asset.json";
+import resumeAsset from "@/assets/Udit_Pandey_Resume_v2.pdf.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
