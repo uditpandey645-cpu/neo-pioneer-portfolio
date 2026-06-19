@@ -8,6 +8,7 @@ import { HoloHelmet } from "@/components/portfolio/HoloHelmet";
 import { Counter } from "@/components/portfolio/Counter";
 import { toast } from "sonner";
 import uditAsset from "@/assets/udit.jpg.asset.json";
+import resumeAsset from "@/assets/Udit_Pandey_Resume_v2.pdf.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -152,7 +153,7 @@ function Hero() {
             <a href="#projects" className="group inline-flex items-center gap-2 bg-[color:var(--cyan)] text-[color:var(--primary-foreground)] px-6 py-3 rounded-full font-display tracking-widest text-xs hover:glow-cyan transition">
               VIEW PROJECTS <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
             </a>
-            <a href="/resume.pdf" download className="glass inline-flex items-center gap-2 px-6 py-3 rounded-full font-display tracking-widest text-xs hover:glow-cyan transition">
+            <a href={resumeAsset.url} download className="glass inline-flex items-center gap-2 px-6 py-3 rounded-full font-display tracking-widest text-xs hover:glow-cyan transition">
               <Download className="w-4 h-4" /> RESUME
             </a>
             <a href="#contact" className="glass-iron inline-flex items-center gap-2 px-6 py-3 rounded-full font-display tracking-widest text-xs hover:glow-iron transition">
