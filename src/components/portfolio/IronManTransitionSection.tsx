@@ -88,8 +88,7 @@ export function IronManTransitionSection() {
           muted
           playsInline
           preload="auto"
-          // @ts-expect-error vendor attribute
-          webkit-playsinline="true"
+          {...({ "webkit-playsinline": "true" } as Record<string, string>)}
           disablePictureInPicture
           disableRemotePlayback
           tabIndex={-1}
