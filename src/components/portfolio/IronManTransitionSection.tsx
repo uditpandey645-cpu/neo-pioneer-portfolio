@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import videoAsset from "@/assets/ironman-transition.mp4.asset.json";
 
@@ -6,43 +6,18 @@ export function IronManTransitionSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const hasAutoPlayedRef = useRef(false);
-  const reverseRafRef = useRef<number | null>(null);
-  const [direction, setDirection] = useState<"forward" | "reverse">("forward");
-
-  const stopReverse = () => {
-    if (reverseRafRef.current != null) {
-      cancelAnimationFrame(reverseRafRef.current);
-      reverseRafRef.current = null;
-    }
-  };
-
-  const playReverse = useCallback(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.pause();
-    stopReverse();
-    let last = performance.now();
-    const step = (now: number) => {
-      const dt = (now - last) / 1000;
-      last = now;
-      if (!v) return;
-      v.currentTime = Math.max(0, v.currentTime - dt);
-      if (v.currentTime <= 0.02) {
-        v.currentTime = 0;
-        reverseRafRef.current = null;
-        return;
-      }
-      reverseRafRef.current = requestAnimationFrame(step);
-    };
-    reverseRafRef.current = requestAnimationFrame(step);
-  }, []);
+  const isPlayingRef = useRef(false);
 
   const playForward = useCallback(() => {
     const v = videoRef.current;
-    if (!v) return;
-    stopReverse();
+    if (!v || isPlayingRef.current) return;
+    isPlayingRef.current = true;
     if (v.currentTime >= v.duration - 0.05) v.currentTime = 0;
     v.play().catch(() => {});
+  }, []);
+
+  const handleEnded = useCallback(() => {
+    isPlayingRef.current = false;
   }, []);
 
   // Autoplay once on first visit
@@ -68,18 +43,16 @@ export function IronManTransitionSection() {
     io.observe(s);
     return () => {
       io.disconnect();
-      stopReverse();
     };
   }, [playForward]);
 
   const handleClick = () => {
-    if (direction === "forward") {
-      setDirection("reverse");
-      playReverse();
-    } else {
-      setDirection("forward");
-      playForward();
-    }
+    // Ignore clicks while video is already playing
+    if (isPlayingRef.current) return;
+    const v = videoRef.current;
+    if (!v) return;
+    v.currentTime = 0;
+    playForward();
   };
 
   return (
@@ -95,6 +68,7 @@ export function IronManTransitionSection() {
         playsInline
         preload="auto"
         onClick={handleClick}
+        onEnded={handleEnded}
         aria-hidden="true"
         {...({ "webkit-playsinline": "true" } as Record<string, string>)}
         className="absolute inset-0 w-full h-full object-cover cursor-pointer select-none"
