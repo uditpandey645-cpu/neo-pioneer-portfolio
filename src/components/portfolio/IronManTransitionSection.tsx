@@ -1,11 +1,51 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import videoAsset from "@/assets/ironman-transition.mp4.asset.json";
 
 export function IronManTransitionSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const hasAutoPlayedRef = useRef(false);
+  const reverseRafRef = useRef<number | null>(null);
+  const [direction, setDirection] = useState<"forward" | "reverse">("forward");
 
+  const stopReverse = () => {
+    if (reverseRafRef.current != null) {
+      cancelAnimationFrame(reverseRafRef.current);
+      reverseRafRef.current = null;
+    }
+  };
+
+  const playReverse = useCallback(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.pause();
+    stopReverse();
+    let last = performance.now();
+    const step = (now: number) => {
+      const dt = (now - last) / 1000;
+      last = now;
+      if (!v) return;
+      v.currentTime = Math.max(0, v.currentTime - dt);
+      if (v.currentTime <= 0.02) {
+        v.currentTime = 0;
+        reverseRafRef.current = null;
+        return;
+      }
+      reverseRafRef.current = requestAnimationFrame(step);
+    };
+    reverseRafRef.current = requestAnimationFrame(step);
+  }, []);
+
+  const playForward = useCallback(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    stopReverse();
+    if (v.currentTime >= v.duration - 0.05) v.currentTime = 0;
+    v.play().catch(() => {});
+  }, []);
+
+  // Autoplay once on first visit
   useEffect(() => {
     const v = videoRef.current;
     const s = sectionRef.current;
@@ -13,18 +53,34 @@ export function IronManTransitionSection() {
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          if (e.isIntersecting && e.intersectionRatio > 0.5) {
-            v.play().catch(() => {});
-          } else {
-            v.pause();
+          if (
+            e.isIntersecting &&
+            e.intersectionRatio > 0.5 &&
+            !hasAutoPlayedRef.current
+          ) {
+            hasAutoPlayedRef.current = true;
+            playForward();
           }
         }
       },
       { threshold: [0, 0.5, 0.75, 1] }
     );
     io.observe(s);
-    return () => io.disconnect();
-  }, []);
+    return () => {
+      io.disconnect();
+      stopReverse();
+    };
+  }, [playForward]);
+
+  const handleClick = () => {
+    if (direction === "forward") {
+      setDirection("reverse");
+      playReverse();
+    } else {
+      setDirection("forward");
+      playForward();
+    }
+  };
 
   return (
     <section
@@ -36,13 +92,12 @@ export function IronManTransitionSection() {
         ref={videoRef}
         src={videoAsset.url}
         muted
-        loop
         playsInline
         preload="auto"
-        tabIndex={-1}
+        onClick={handleClick}
         aria-hidden="true"
         {...({ "webkit-playsinline": "true" } as Record<string, string>)}
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+        className="absolute inset-0 w-full h-full object-cover cursor-pointer select-none"
         style={{ transform: "translate3d(0,0,0)", willChange: "transform" }}
       />
 
@@ -60,7 +115,7 @@ export function IronManTransitionSection() {
         className="absolute inset-0 pointer-events-none mix-blend-screen"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 60%, oklch(0.7 0.18 220 / 12%), transparent 60%)",
+            "radial-gradient(ellipse at 50% 80%, oklch(0.7 0.18 220 / 12%), transparent 60%)",
         }}
       />
 
@@ -79,19 +134,19 @@ export function IronManTransitionSection() {
 
       <div aria-hidden className="absolute inset-x-0 h-24 bg-gradient-to-b from-transparent via-[color:var(--cyan)]/10 to-transparent animate-scan pointer-events-none" />
 
-      {/* Headline */}
+      {/* Headline — bottom aligned */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.5 }}
+        viewport={{ once: false, amount: 0.4 }}
         transition={{ duration: 0.9, ease: "easeOut" }}
-        className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 pointer-events-none"
+        className="absolute inset-x-0 bottom-16 md:bottom-20 flex flex-col items-center text-center px-6 pointer-events-none"
       >
-        <div className="font-display text-[10px] md:text-xs tracking-[0.5em] text-[color:var(--cyan)] mb-4">// CHAPTER 03</div>
-        <h2 className="font-display text-5xl md:text-8xl font-black leading-[0.95] neon-text">
+        <div className="font-display text-[10px] md:text-xs tracking-[0.5em] text-[color:var(--cyan)] mb-3">// CHAPTER 03</div>
+        <h2 className="font-display text-3xl md:text-5xl font-black leading-[0.95] neon-text">
           BEYOND <span className="iron-text">SOFTWARE</span>
         </h2>
-        <p className="mt-5 text-base md:text-xl text-muted-foreground font-display tracking-wide">
+        <p className="mt-3 text-sm md:text-lg text-muted-foreground font-display tracking-wide">
           Transforming Ideas Into Intelligent Machines
         </p>
       </motion.div>
@@ -99,7 +154,7 @@ export function IronManTransitionSection() {
       {/* Bottom blend into next section */}
       <div
         aria-hidden
-        className="absolute inset-x-0 bottom-0 h-40 pointer-events-none"
+        className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
         style={{ background: "linear-gradient(180deg, transparent, var(--background))" }}
       />
     </section>
