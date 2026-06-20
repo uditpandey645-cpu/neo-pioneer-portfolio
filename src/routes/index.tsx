@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ParticleField } from "@/components/portfolio/ParticleField";
 import { Typing } from "@/components/portfolio/Typing";
 import { HoloHelmet } from "@/components/portfolio/HoloHelmet";
+import { IronManTransitionSection } from "@/components/portfolio/IronManTransitionSection";
 import { ResumeModal } from "@/components/portfolio/ResumeModal";
 import { Counter } from "@/components/portfolio/Counter";
 import { toast } from "sonner";
@@ -92,6 +93,7 @@ function Portfolio() {
         {projects.map((p, i) => (
           <ProjectSection key={p.id} p={p} index={i} />
         ))}
+        <IronManTransitionSection />
         <HelmetSection />
         <Skills />
         <Achievements />
