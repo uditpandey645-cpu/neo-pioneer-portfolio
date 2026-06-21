@@ -6,6 +6,7 @@ import { ParticleField } from "@/components/portfolio/ParticleField";
 import { Typing } from "@/components/portfolio/Typing";
 import { HoloHelmet } from "@/components/portfolio/HoloHelmet";
 import { IronManTransitionSection } from "@/components/portfolio/IronManTransitionSection";
+import { NeuroSyncSection } from "@/components/portfolio/NeuroSyncSection";
 import { ResumeModal } from "@/components/portfolio/ResumeModal";
 import { Counter } from "@/components/portfolio/Counter";
 import { toast } from "sonner";
@@ -88,6 +89,7 @@ function Portfolio() {
       <div className="fixed inset-0 grid-bg opacity-30 pointer-events-none z-0" />
       <Nav />
       <main className="relative z-10">
+        <NeuroSyncSection />
         <Hero />
         <ProjectsIntro />
         {projects.map((p, i) => (
