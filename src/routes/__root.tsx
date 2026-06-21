@@ -120,7 +120,6 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <EnergyBackground />
       <Outlet />
       <Toaster theme="dark" position="bottom-right" />
     </QueryClientProvider>
