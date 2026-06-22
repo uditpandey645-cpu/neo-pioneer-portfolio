@@ -76,7 +76,7 @@ const projects = [
     github: "https://github.com/uditpandey645-cpu",
     icon: ScanFace,
     accent: "from-emerald-400 to-cyan-500",
-    image: undefined as string | undefined,
+    image: presentxAsset.url,
   },
 ];
 
