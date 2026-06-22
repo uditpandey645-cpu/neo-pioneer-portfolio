@@ -6,12 +6,14 @@ import { ParticleField } from "@/components/portfolio/ParticleField";
 import { Typing } from "@/components/portfolio/Typing";
 import { HoloHelmet } from "@/components/portfolio/HoloHelmet";
 import { IronManTransitionSection } from "@/components/portfolio/IronManTransitionSection";
-import { NeuroSyncSection } from "@/components/portfolio/NeuroSyncSection";
 import { ResumeModal } from "@/components/portfolio/ResumeModal";
 import { Counter } from "@/components/portfolio/Counter";
 import { toast } from "sonner";
 import uditAsset from "@/assets/udit.jpg.asset.json";
+import resqlinkAsset from "@/assets/resqlink.png.asset.json";
+import gestyxraAsset from "@/assets/gestyxra.png.asset.json";
 import resumeAsset from "@/assets/Udit_Pandey_Resume_v2.pdf.asset.json";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -46,6 +48,7 @@ const projects = [
     github: "https://github.com/uditpandey645-cpu",
     icon: Radio,
     accent: "from-cyan-400 to-blue-500",
+    image: resqlinkAsset.url,
   },
   {
     id: "gestyxra",
@@ -58,6 +61,7 @@ const projects = [
     github: "https://github.com/uditpandey645-cpu",
     icon: Hand,
     accent: "from-fuchsia-400 to-cyan-400",
+    image: gestyxraAsset.url,
   },
   {
     id: "presentx",
@@ -70,8 +74,10 @@ const projects = [
     github: "https://github.com/uditpandey645-cpu",
     icon: ScanFace,
     accent: "from-emerald-400 to-cyan-500",
+    image: undefined as string | undefined,
   },
 ];
+
 
 const skills = [
   { name: "Web Development", icon: Code2, items: ["React", "Next.js", "TypeScript", "Node"] },
@@ -89,9 +95,9 @@ function Portfolio() {
       <div className="fixed inset-0 grid-bg opacity-30 pointer-events-none z-0" />
       <Nav />
       <main className="relative z-10">
-        <NeuroSyncSection />
         <Hero />
         <ProjectsIntro />
+
         {projects.map((p, i) => (
           <ProjectSection key={p.id} p={p} index={i} />
         ))}
@@ -140,7 +146,7 @@ function Hero() {
       <div className="mx-auto max-w-6xl grid md:grid-cols-[1.2fr_1fr] gap-12 items-center">
         <div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full text-xs font-display tracking-widest text-[color:var(--cyan)] mb-6">
-            <span className="w-2 h-2 rounded-full bg-[color:var(--cyan)] animate-pulse" /> SYSTEM ONLINE · 2026
+            <span className="w-2 h-2 rounded-full bg-[color:var(--cyan)] animate-pulse" /> SYSTEM ONLINE
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="font-display text-5xl md:text-7xl font-black leading-[1.05]">
             UDIT <span className="iron-text">PANDEY</span>
@@ -227,15 +233,24 @@ function ProjectSection({ p, index }: { p: typeof projects[number]; index: numbe
             <div className={`absolute -top-20 -right-20 w-72 h-72 rounded-full bg-gradient-to-br ${p.accent} opacity-30 blur-3xl`} />
             <div className="relative h-full flex flex-col">
               <div className="flex items-center gap-2 font-display text-xs tracking-widest text-[color:var(--cyan)]">PROJECT 0{index + 1}<span className="flex-1 h-px bg-[color:var(--cyan)]/30" /></div>
-              <div className="flex-1 flex items-center justify-center">
-                <div className={`w-40 h-40 rounded-3xl bg-gradient-to-br ${p.accent} p-[2px] animate-float`}>
-                  <div className="w-full h-full rounded-3xl bg-card flex items-center justify-center">
-                    <Icon className="w-20 h-20 text-[color:var(--cyan)]" strokeWidth={1.2} />
+              <div className="flex-1 flex items-center justify-center py-4">
+                {p.image ? (
+                  <div className={`w-full max-w-md rounded-2xl bg-gradient-to-br ${p.accent} p-[2px] animate-float`}>
+                    <div className="w-full h-full rounded-2xl overflow-hidden bg-card">
+                      <img src={p.image} alt={`${p.name} preview`} className="w-full h-full object-cover" />
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className={`w-40 h-40 rounded-3xl bg-gradient-to-br ${p.accent} p-[2px] animate-float`}>
+                    <div className="w-full h-full rounded-3xl bg-card flex items-center justify-center">
+                      <Icon className="w-20 h-20 text-[color:var(--cyan)]" strokeWidth={1.2} />
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="font-display text-3xl font-black neon-text">{p.name}</div>
               <div className="text-xs tracking-widest text-muted-foreground mt-1">{p.tagline.toUpperCase()}</div>
+
             </div>
             <div className="absolute inset-x-0 h-20 bg-gradient-to-b from-transparent via-[color:var(--cyan)]/15 to-transparent animate-scan pointer-events-none" />
           </div>
@@ -384,7 +399,7 @@ function Achievements() {
   const stats = [
     { v: 25, s: "+", label: "Projects Built" },
     { v: 30, s: "+", label: "Technologies Learned" },
-    { v: 15, s: "+", label: "Successful Deployments" },
+    { v: 5, s: "+", label: "Hackathon Wins" },
   ];
   return (
     <section className="py-20 px-4">
