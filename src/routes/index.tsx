@@ -188,20 +188,50 @@ function Hero() {
           </motion.div>
         </div>
 
-        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} className="relative">
-          <div className="relative aspect-square max-w-md mx-auto">
-            <div className="absolute inset-0 rounded-full border border-[color:var(--cyan)]/40 animate-spin-slow" />
-            <div className="absolute inset-4 rounded-full border border-dashed border-[color:var(--gold)]/30 animate-spin-slow" style={{ animationDirection: "reverse" }} />
-            <div className="absolute inset-10 rounded-full overflow-hidden glow-cyan border-2 border-[color:var(--cyan)]/40 animate-float">
-              <img src={uditAsset.url} alt="Udit Pandey" className="w-full h-full object-cover" />
-              <div className="absolute inset-x-0 h-16 bg-gradient-to-b from-transparent via-[color:var(--cyan)]/40 to-transparent animate-scan" />
+        <motion.div initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9 }} className="relative">
+          <div className="relative mx-auto w-full max-w-[460px] aspect-[3/4]">
+            {/* glow halos */}
+            <div className="absolute -inset-10 rounded-[2rem] bg-[radial-gradient(ellipse_at_center,oklch(0.82_0.18_200/35%),transparent_70%)] blur-2xl animate-orbit-glow" />
+            <div className="absolute -inset-6 rounded-[2rem] bg-[radial-gradient(ellipse_at_bottom,oklch(0.65_0.22_25/30%),transparent_70%)] blur-2xl animate-orbit-glow" style={{ animationDelay: "1.2s" }} />
+
+            {/* laser border frame */}
+            <div className="laser-frame absolute inset-0 animate-hero-float">
+              <div className="relative w-full h-full rounded-[1.4rem] overflow-hidden bg-gradient-to-b from-[oklch(0.18_0.05_250)] via-[oklch(0.14_0.04_260)] to-[oklch(0.1_0.03_270)]">
+                {/* grid backdrop */}
+                <div className="absolute inset-0 grid-bg opacity-30" />
+                {/* radial spotlight behind subject */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,oklch(0.82_0.18_200/25%),transparent_60%)]" />
+                {/* the cutout — large, no frame */}
+                <img
+                  src={uditCutoutAsset.url}
+                  alt="Udit Pandey"
+                  className="absolute inset-x-0 bottom-0 mx-auto h-[105%] w-auto object-contain drop-shadow-[0_0_25px_oklch(0.82_0.18_200/45%)]"
+                />
+                {/* scan line */}
+                <div className="absolute inset-x-0 h-24 bg-gradient-to-b from-transparent via-[color:var(--cyan)]/30 to-transparent animate-scan pointer-events-none" />
+                {/* corner brackets */}
+                {[
+                  "top-3 left-3 border-l-2 border-t-2",
+                  "top-3 right-3 border-r-2 border-t-2",
+                  "bottom-3 left-3 border-l-2 border-b-2",
+                  "bottom-3 right-3 border-r-2 border-b-2",
+                ].map((cls) => (
+                  <span key={cls} className={`absolute w-6 h-6 border-[color:var(--cyan)] ${cls}`} />
+                ))}
+              </div>
             </div>
+
+            {/* floating tech chips */}
             {[Zap, Cpu, Bot, Rocket].map((Icon, i) => (
-              <div key={i} className="absolute glass w-12 h-12 rounded-xl flex items-center justify-center text-[color:var(--cyan)] animate-float" style={{
-                top: ["10%", "20%", "70%", "75%"][i],
-                left: ["0%", "85%", "0%", "85%"][i],
-                animationDelay: `${i * 0.7}s`,
-              }}>
+              <div
+                key={i}
+                className="absolute glass w-12 h-12 rounded-xl flex items-center justify-center text-[color:var(--cyan)] animate-float z-10"
+                style={{
+                  top: ["6%", "18%", "68%", "78%"][i],
+                  left: ["-6%", "92%", "-8%", "94%"][i],
+                  animationDelay: `${i * 0.7}s`,
+                }}
+              >
                 <Icon className="w-5 h-5" />
               </div>
             ))}
