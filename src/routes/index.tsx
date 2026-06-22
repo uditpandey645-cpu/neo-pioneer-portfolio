@@ -10,8 +10,10 @@ import { ResumeModal } from "@/components/portfolio/ResumeModal";
 import { Counter } from "@/components/portfolio/Counter";
 import { toast } from "sonner";
 import uditAsset from "@/assets/udit.jpg.asset.json";
+import uditCutoutAsset from "@/assets/udit-cutout.png.asset.json";
 import resqlinkAsset from "@/assets/resqlink.png.asset.json";
 import gestyxraAsset from "@/assets/gestyxra.png.asset.json";
+import presentxAsset from "@/assets/presentx.jpg.asset.json";
 import resumeAsset from "@/assets/Udit_Pandey_Resume_v2.pdf.asset.json";
 
 
