@@ -117,6 +117,12 @@ function Portfolio() {
 }
 
 function Nav() {
+  const [hidden, setHidden] = useState(false);
+  useEffect(() => {
+    const onToggle = (e: Event) => setHidden((e as CustomEvent<boolean>).detail);
+    window.addEventListener("ui:nav-hide", onToggle as EventListener);
+    return () => window.removeEventListener("ui:nav-hide", onToggle as EventListener);
+  }, []);
   const links = [
     { href: "#home", label: "Home" },
     { href: "#projects", label: "Projects" },
@@ -125,7 +131,11 @@ function Nav() {
     { href: "#contact", label: "Contact" },
   ];
   return (
-    <header className="fixed top-0 inset-x-0 z-50">
+    <header
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-out ${
+        hidden ? "opacity-0 -translate-y-6 pointer-events-none" : "opacity-100 translate-y-0"
+      }`}
+    >
       <div className="mx-auto mt-4 max-w-6xl px-4">
         <nav className="glass rounded-full px-6 py-3 flex items-center justify-between">
           <a href="#home" className="font-display font-bold tracking-widest text-sm neon-text">UDIT.P</a>
