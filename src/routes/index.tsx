@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Instagram, Mail, Download, ArrowRight, ExternalLink, Cpu, Brain, Bot, Wifi, Eye, Code2, Zap, Radio, Hand, ScanFace, Rocket } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, Download, ArrowRight, ExternalLink, Cpu, Brain, Bot, Wifi, Eye, Code2, Radio, Hand, ScanFace } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ParticleField } from "@/components/portfolio/ParticleField";
 import { Typing } from "@/components/portfolio/Typing";
