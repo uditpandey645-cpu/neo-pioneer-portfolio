@@ -8,6 +8,7 @@ import { HoloHelmet } from "@/components/portfolio/HoloHelmet";
 import { IronManTransitionSection } from "@/components/portfolio/IronManTransitionSection";
 import { ResumeModal } from "@/components/portfolio/ResumeModal";
 import { Counter } from "@/components/portfolio/Counter";
+import { TechCircuitBg } from "@/components/portfolio/TechCircuitBg";
 import { toast } from "sonner";
 import uditAsset from "@/assets/udit.jpg.asset.json";
 import uditCutoutAsset from "@/assets/udit-cutout.png.asset.json";
