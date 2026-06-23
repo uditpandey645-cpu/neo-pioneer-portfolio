@@ -258,63 +258,92 @@ function ProjectsIntro() {
 function ProjectSection({ p, index }: { p: typeof projects[number]; index: number }) {
   const Icon = p.icon;
   const reverse = index % 2 === 1;
+  const container = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+  };
+  const item = {
+    hidden: { opacity: 0, y: 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const } },
+  };
   return (
-    <section className="relative min-h-screen py-20 px-4 flex items-center">
-      <div className={`mx-auto max-w-6xl grid md:grid-cols-2 gap-12 items-center ${reverse ? "md:[&>*:first-child]:order-2" : ""}`}>
-        <motion.div initial={{ opacity: 0, x: reverse ? 40 : -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="relative">
-          <div className="glass rounded-3xl aspect-[4/3] p-8 relative overflow-hidden glow-cyan">
-            <div className={`absolute -top-20 -right-20 w-72 h-72 rounded-full bg-gradient-to-br ${p.accent} opacity-30 blur-3xl`} />
+    <section className="relative py-14 md:py-20 px-4">
+      <div className={`mx-auto max-w-7xl grid md:grid-cols-2 gap-8 lg:gap-10 items-center ${reverse ? "md:[&>*:first-child]:order-2" : ""}`}>
+        <motion.div
+          initial={{ opacity: 0, x: reverse ? 40 : -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="relative"
+        >
+          <div className="glass tilt-card rounded-3xl aspect-[5/4] p-5 md:p-6 relative overflow-hidden glow-cyan">
+            <div className={`absolute -top-24 -right-24 w-80 h-80 rounded-full bg-gradient-to-br ${p.accent} opacity-30 blur-3xl`} />
             <div className="relative h-full flex flex-col">
-              <div className="flex items-center gap-2 font-display text-xs tracking-widest text-[color:var(--cyan)]">PROJECT 0{index + 1}<span className="flex-1 h-px bg-[color:var(--cyan)]/30" /></div>
-              <div className="flex-1 flex items-center justify-center py-4">
+              <div className="flex items-center gap-2 font-display text-xs tracking-widest text-[color:var(--cyan)]">
+                PROJECT 0{index + 1}
+                <span className="flex-1 h-px bg-[color:var(--cyan)]/30" />
+              </div>
+              <div className="flex-1 flex items-center justify-center py-3">
                 {p.image ? (
-                  <div className={`w-full max-w-md rounded-2xl bg-gradient-to-br ${p.accent} p-[2px] animate-float`}>
+                  <div className={`w-full h-full max-h-[440px] rounded-2xl bg-gradient-to-br ${p.accent} p-[2px] animate-float`}>
                     <div className="w-full h-full rounded-2xl overflow-hidden bg-card">
                       <img src={p.image} alt={`${p.name} preview`} className="w-full h-full object-cover" />
                     </div>
                   </div>
                 ) : (
-                  <div className={`w-40 h-40 rounded-3xl bg-gradient-to-br ${p.accent} p-[2px] animate-float`}>
+                  <div className={`w-56 h-56 rounded-3xl bg-gradient-to-br ${p.accent} p-[2px] animate-float`}>
                     <div className="w-full h-full rounded-3xl bg-card flex items-center justify-center">
-                      <Icon className="w-20 h-20 text-[color:var(--cyan)]" strokeWidth={1.2} />
+                      <Icon className="w-24 h-24 text-[color:var(--cyan)]" strokeWidth={1.2} />
                     </div>
                   </div>
                 )}
               </div>
-              <div className="font-display text-3xl font-black neon-text">{p.name}</div>
+              <div className="font-display text-3xl md:text-4xl font-black neon-text">{p.name}</div>
               <div className="text-xs tracking-widest text-muted-foreground mt-1">{p.tagline.toUpperCase()}</div>
-
             </div>
             <div className="absolute inset-x-0 h-20 bg-gradient-to-b from-transparent via-[color:var(--cyan)]/15 to-transparent animate-scan pointer-events-none" />
           </div>
         </motion.div>
-        <motion.div initial={{ opacity: 0, x: reverse ? -40 : 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
-          <h3 className="font-display text-4xl md:text-5xl font-black">{p.name}</h3>
-          <p className="mt-4 text-muted-foreground leading-relaxed">{p.desc}</p>
-          <div className="mt-6">
+
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+        >
+          <motion.div variants={item} className="font-display text-xs tracking-[0.4em] text-[color:var(--cyan)] mb-3">
+            // PROJECT 0{index + 1}
+          </motion.div>
+          <motion.h3 variants={item} className="font-display text-5xl md:text-6xl lg:text-7xl font-black leading-[1.02]">
+            {p.name}
+          </motion.h3>
+          <motion.p variants={item} className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
+            {p.desc}
+          </motion.p>
+          <motion.div variants={item} className="mt-6">
             <div className="font-display text-xs tracking-widest text-[color:var(--cyan)] mb-3">FEATURES</div>
-            <ul className="grid sm:grid-cols-2 gap-2 text-sm">
+            <ul className="grid sm:grid-cols-2 gap-2 text-sm md:text-base">
               {p.features.map((f) => (
                 <li key={f} className="flex items-start gap-2"><span className="text-[color:var(--cyan)] mt-0.5">▸</span>{f}</li>
               ))}
             </ul>
-          </div>
-          <div className="mt-6">
+          </motion.div>
+          <motion.div variants={item} className="mt-6">
             <div className="font-display text-xs tracking-widest text-[color:var(--cyan)] mb-3">TECH STACK</div>
             <div className="flex flex-wrap gap-2">
               {p.stack.map((t) => (
                 <span key={t} className="glass px-3 py-1 rounded-full text-xs">{t}</span>
               ))}
             </div>
-          </div>
-          <div className="mt-8 flex flex-wrap gap-3">
+          </motion.div>
+          <motion.div variants={item} className="mt-7 flex flex-wrap gap-3">
             <a href={p.live} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-[color:var(--cyan)] text-[color:var(--primary-foreground)] px-5 py-2.5 rounded-full font-display tracking-widest text-xs hover:glow-cyan transition">
               LIVE SITE <ExternalLink className="w-4 h-4" />
             </a>
             <a href={p.github} target="_blank" rel="noreferrer" className="glass inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-display tracking-widest text-xs hover:glow-cyan transition">
               <Github className="w-4 h-4" /> GITHUB
             </a>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
