@@ -198,8 +198,8 @@ function Hero() {
             {/* laser border frame */}
             <div className="laser-frame absolute inset-0 animate-hero-float">
               <div className="relative w-full h-full rounded-[1.4rem] overflow-hidden bg-gradient-to-b from-[oklch(0.18_0.05_250)] via-[oklch(0.14_0.04_260)] to-[oklch(0.1_0.03_270)]">
-                {/* grid backdrop */}
-                <div className="absolute inset-0 grid-bg opacity-30" />
+                {/* animated tech circuit backdrop */}
+                <TechCircuitBg />
                 {/* radial spotlight behind subject */}
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,oklch(0.82_0.18_200/25%),transparent_60%)]" />
                 {/* the cutout — large, no frame */}
