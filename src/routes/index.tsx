@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Instagram, Mail, Download, ArrowRight, ExternalLink, Cpu, Brain, Bot, Wifi, Eye, Code2, Zap, Radio, Hand, ScanFace, Rocket } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ParticleField } from "@/components/portfolio/ParticleField";
 import { Typing } from "@/components/portfolio/Typing";
 import { HoloHelmet } from "@/components/portfolio/HoloHelmet";
@@ -9,6 +9,7 @@ import { IronManTransitionSection } from "@/components/portfolio/IronManTransiti
 import { ResumeModal } from "@/components/portfolio/ResumeModal";
 import { Counter } from "@/components/portfolio/Counter";
 import { TechCircuitBg } from "@/components/portfolio/TechCircuitBg";
+import { AICoreRings } from "@/components/portfolio/AICoreRings";
 import { toast } from "sonner";
 import uditAsset from "@/assets/udit.jpg.asset.json";
 import uditCutoutAsset from "@/assets/udit-cutout.png.asset.json";
