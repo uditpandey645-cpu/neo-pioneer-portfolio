@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Instagram, Mail, Download, ArrowRight, ExternalLink, Cpu, Brain, Bot, Wifi, Eye, Code2, Zap, Radio, Hand, ScanFace, Rocket } from "lucide-react";
-import { useState } from "react";
+import { Github, Linkedin, Instagram, Mail, Download, ArrowRight, ExternalLink, Cpu, Brain, Bot, Wifi, Eye, Code2, Radio, Hand, ScanFace } from "lucide-react";
+import { useEffect, useState } from "react";
 import { ParticleField } from "@/components/portfolio/ParticleField";
 import { Typing } from "@/components/portfolio/Typing";
 import { HoloHelmet } from "@/components/portfolio/HoloHelmet";
@@ -9,6 +9,7 @@ import { IronManTransitionSection } from "@/components/portfolio/IronManTransiti
 import { ResumeModal } from "@/components/portfolio/ResumeModal";
 import { Counter } from "@/components/portfolio/Counter";
 import { TechCircuitBg } from "@/components/portfolio/TechCircuitBg";
+import { AICoreRings } from "@/components/portfolio/AICoreRings";
 import { toast } from "sonner";
 import uditAsset from "@/assets/udit.jpg.asset.json";
 import uditCutoutAsset from "@/assets/udit-cutout.png.asset.json";
@@ -116,6 +117,12 @@ function Portfolio() {
 }
 
 function Nav() {
+  const [hidden, setHidden] = useState(false);
+  useEffect(() => {
+    const onToggle = (e: Event) => setHidden((e as CustomEvent<boolean>).detail);
+    window.addEventListener("ui:nav-hide", onToggle as EventListener);
+    return () => window.removeEventListener("ui:nav-hide", onToggle as EventListener);
+  }, []);
   const links = [
     { href: "#home", label: "Home" },
     { href: "#projects", label: "Projects" },
@@ -124,7 +131,11 @@ function Nav() {
     { href: "#contact", label: "Contact" },
   ];
   return (
-    <header className="fixed top-0 inset-x-0 z-50">
+    <header
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-out ${
+        hidden ? "opacity-0 -translate-y-6 pointer-events-none" : "opacity-100 translate-y-0"
+      }`}
+    >
       <div className="mx-auto mt-4 max-w-6xl px-4">
         <nav className="glass rounded-full px-6 py-3 flex items-center justify-between">
           <a href="#home" className="font-display font-bold tracking-widest text-sm neon-text">UDIT.P</a>
@@ -222,20 +233,8 @@ function Hero() {
               </div>
             </div>
 
-            {/* floating tech chips */}
-            {[Zap, Cpu, Bot, Rocket].map((Icon, i) => (
-              <div
-                key={i}
-                className="absolute glass w-12 h-12 rounded-xl flex items-center justify-center text-[color:var(--cyan)] animate-float z-10"
-                style={{
-                  top: ["6%", "18%", "68%", "78%"][i],
-                  left: ["-6%", "92%", "-8%", "94%"][i],
-                  animationDelay: `${i * 0.7}s`,
-                }}
-              >
-                <Icon className="w-5 h-5" />
-              </div>
-            ))}
+            {/* AI / robotics core rings — replaces particle chips */}
+            <AICoreRings />
           </div>
         </motion.div>
       </div>

@@ -14,9 +14,11 @@ export function ResumeModal({ open, onClose, url }: ResumeModalProps) {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    window.dispatchEvent(new CustomEvent("ui:nav-hide", { detail: true }));
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      window.dispatchEvent(new CustomEvent("ui:nav-hide", { detail: false }));
     };
   }, [open, onClose]);
 
