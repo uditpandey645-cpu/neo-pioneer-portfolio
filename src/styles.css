@@ -154,6 +154,17 @@
   0%, 100% { opacity: 0.55; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.06); }
 }
+@keyframes circuit-flow {
+  to { stroke-dashoffset: -240; }
+}
+@keyframes grid-drift {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 60px 60px, 60px 60px; }
+}
+@keyframes node-pulse {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
 
 .animate-scan { animation: scan 4s linear infinite; }
 .animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
@@ -161,6 +172,9 @@
 .animate-spin-slow { animation: spin-slow 20s linear infinite; }
 .animate-hero-float { animation: hero-float 7s ease-in-out infinite; }
 .animate-orbit-glow { animation: orbit-glow 4s ease-in-out infinite; }
+.animate-circuit-flow { animation: circuit-flow 6s linear infinite; }
+.animate-grid-drift { animation: grid-drift 18s linear infinite; }
+.animate-node-pulse { animation: node-pulse 2.4s ease-in-out infinite; }
 .cursor-blink::after { content: "▍"; animation: blink 1s steps(1) infinite; color: var(--cyan); margin-left: 2px; }
 
 @utility laser-frame {
@@ -182,4 +196,16 @@
   box-shadow:
     0 0 40px oklch(0.82 0.18 200 / 35%),
     0 0 80px oklch(0.65 0.22 25 / 25%);
+}
+
+@utility tilt-card {
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 500ms ease, border-color 500ms ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt-card:hover {
+  transform: translateY(-10px) perspective(1200px) rotateX(3deg) rotateY(-3deg);
+  box-shadow:
+    0 30px 60px -20px oklch(0.82 0.18 200 / 35%),
+    0 0 50px oklch(0.82 0.18 200 / 30%);
 }
