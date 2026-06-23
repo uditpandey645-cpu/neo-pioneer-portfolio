@@ -233,20 +233,8 @@ function Hero() {
               </div>
             </div>
 
-            {/* floating tech chips */}
-            {[Zap, Cpu, Bot, Rocket].map((Icon, i) => (
-              <div
-                key={i}
-                className="absolute glass w-12 h-12 rounded-xl flex items-center justify-center text-[color:var(--cyan)] animate-float z-10"
-                style={{
-                  top: ["6%", "18%", "68%", "78%"][i],
-                  left: ["-6%", "92%", "-8%", "94%"][i],
-                  animationDelay: `${i * 0.7}s`,
-                }}
-              >
-                <Icon className="w-5 h-5" />
-              </div>
-            ))}
+            {/* AI / robotics core rings — replaces particle chips */}
+            <AICoreRings />
           </div>
         </motion.div>
       </div>
