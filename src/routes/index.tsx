@@ -439,7 +439,7 @@ function Skills() {
           {skills.map((s, i) => {
             const Icon = s.icon;
             return (
-              <motion.div key={s.name} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="group glass rounded-2xl p-6 hover:glow-cyan transition relative overflow-hidden">
+              <motion.div key={s.name} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="group glass tilt-card rounded-2xl p-6 hover:glow-cyan relative overflow-hidden">
                 <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-[color:var(--cyan)]/10 blur-2xl group-hover:bg-[color:var(--cyan)]/30 transition" />
                 <Icon className="w-10 h-10 text-[color:var(--cyan)]" strokeWidth={1.4} />
                 <div className="font-display text-xl font-bold mt-4">{s.name}</div>
