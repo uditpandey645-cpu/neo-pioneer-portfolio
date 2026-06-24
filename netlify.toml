@@ -1,0 +1,10 @@
+[build]
+  command = "NITRO_PRESET=netlify bun run build"
+  publish = "dist"
+
+[build.environment]
+  NITRO_PRESET = "netlify"
+  NODE_VERSION = "20"
+
+# Nitro's netlify preset emits the functions + redirects automatically into
+# .netlify/ so Netlify will pick them up without extra configuration.
