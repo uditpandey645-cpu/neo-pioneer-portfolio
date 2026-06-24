@@ -4,7 +4,7 @@
  */
 export function AICoreRings() {
   return (
-    <div className="pointer-events-none absolute inset-0 z-20" aria-hidden>
+    <div className="pointer-events-none absolute -inset-[14%] z-20" aria-hidden>
       {/* Outer dashed ring — slow rotation */}
       <div className="absolute inset-[-8%] animate-spin-slow" style={{ animationDuration: "42s" }}>
         <svg viewBox="0 0 200 200" className="w-full h-full">
@@ -47,21 +47,6 @@ export function AICoreRings() {
         </svg>
       </div>
 
-      {/* Inner gear/processor ring */}
-      <div className="absolute inset-[10%] animate-spin-slow" style={{ animationDuration: "18s" }}>
-        <svg viewBox="0 0 200 200" className="w-full h-full">
-          <circle cx="100" cy="100" r="70" fill="none" stroke="oklch(0.65 0.22 25 / 45%)" strokeWidth="0.5" />
-          {/* gear teeth */}
-          {Array.from({ length: 24 }).map((_, i) => {
-            const a = (i / 24) * Math.PI * 2;
-            const x1 = 100 + Math.cos(a) * 70;
-            const y1 = 100 + Math.sin(a) * 70;
-            const x2 = 100 + Math.cos(a) * 74;
-            const y2 = 100 + Math.sin(a) * 74;
-            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="oklch(0.82 0.15 85 / 70%)" strokeWidth="1.2" strokeLinecap="round" />;
-          })}
-        </svg>
-      </div>
 
       {/* Arc segments — HUD style */}
       <div className="absolute inset-[-3%] animate-spin-slow" style={{ animationDuration: "60s", animationDirection: "reverse" }}>
