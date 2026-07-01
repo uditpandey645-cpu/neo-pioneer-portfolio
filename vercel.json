@@ -3,5 +3,11 @@
   "buildCommand": "NITRO_PRESET=vercel bun run build",
   "outputDirectory": ".vercel/output",
   "framework": null,
-  "installCommand": "bun install"
+  "installCommand": "bun install",
+  "rewrites": [
+    {
+      "source": "/__l5e/:path*",
+      "destination": "https://project--1d769e85-cb44-4a7c-82cc-dc04d76222ca.lovable.app/__l5e/:path*"
+    }
+  ]
 }
