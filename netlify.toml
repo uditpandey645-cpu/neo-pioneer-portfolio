@@ -6,5 +6,14 @@
   NITRO_PRESET = "netlify"
   NODE_VERSION = "20"
 
+# Proxy Lovable CDN-hosted media assets (profile photo, project images,
+# helmet, transition video, resume PDF, etc.) to Lovable's stable project
+# URL so they load when the site is deployed off-Lovable.
+[[redirects]]
+  from = "/__l5e/*"
+  to = "https://project--1d769e85-cb44-4a7c-82cc-dc04d76222ca.lovable.app/__l5e/:splat"
+  status = 200
+  force = true
+
 # Nitro's netlify preset emits the functions + redirects automatically into
 # .netlify/ so Netlify will pick them up without extra configuration.
