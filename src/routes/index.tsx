@@ -11,6 +11,7 @@ import { Counter } from "@/components/portfolio/Counter";
 import { TechCircuitBg } from "@/components/portfolio/TechCircuitBg";
 import { AICoreRings } from "@/components/portfolio/AICoreRings";
 import { toast } from "sonner";
+import { stableAssetUrl } from "@/lib/asset-url";
 import uditAsset from "@/assets/udit.jpg.asset.json";
 import uditCutoutAsset from "@/assets/udit-cutout.png.asset.json";
 import resqlinkAsset from "@/assets/resqlink.png.asset.json";
@@ -18,6 +19,12 @@ import gestyxraAsset from "@/assets/gestyxra.png.asset.json";
 import presentxAsset from "@/assets/presentx.jpg.asset.json";
 import resumeAsset from "@/assets/Udit_Pandey_Resume_v2.pdf.asset.json";
 
+const uditImageUrl = stableAssetUrl(uditAsset.url);
+const uditCutoutUrl = stableAssetUrl(uditCutoutAsset.url);
+const resqlinkImageUrl = stableAssetUrl(resqlinkAsset.url);
+const gestyxraImageUrl = stableAssetUrl(gestyxraAsset.url);
+const presentxImageUrl = stableAssetUrl(presentxAsset.url);
+const resumeUrl = stableAssetUrl(resumeAsset.url);
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,8 +33,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Portfolio of Udit Pandey. Building Resqlink, Gestyxra, PresentX and a Mark 50 Iron Man helmet. Full Stack Developer, AI Engineer, Robotics Innovator." },
       { property: "og:title", content: "Udit Pandey — AI, Robotics & IoT" },
       { property: "og:description", content: "Intelligent software, AI systems, robotics and IoT solutions." },
-      { property: "og:image", content: uditAsset.url },
-      { name: "twitter:image", content: uditAsset.url },
+      { property: "og:image", content: uditImageUrl },
+      { name: "twitter:image", content: uditImageUrl },
     ],
   }),
   component: Portfolio,
@@ -52,7 +59,7 @@ const projects = [
     github: "https://github.com/uditpandey645-cpu",
     icon: Radio,
     accent: "from-cyan-400 to-blue-500",
-    image: resqlinkAsset.url,
+    image: resqlinkImageUrl,
   },
   {
     id: "gestyxra",
@@ -65,7 +72,7 @@ const projects = [
     github: "https://github.com/uditpandey645-cpu",
     icon: Hand,
     accent: "from-fuchsia-400 to-cyan-400",
-    image: gestyxraAsset.url,
+    image: gestyxraImageUrl,
   },
   {
     id: "presentx",
@@ -78,7 +85,7 @@ const projects = [
     github: "https://github.com/uditpandey645-cpu",
     icon: ScanFace,
     accent: "from-emerald-400 to-cyan-500",
-    image: presentxAsset.url,
+    image: presentxImageUrl,
   },
 ];
 
@@ -155,7 +162,7 @@ function Hero() {
   const [resumeOpen, setResumeOpen] = useState(false);
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-28 pb-20 px-4">
-      <ResumeModal open={resumeOpen} onClose={() => setResumeOpen(false)} url={resumeAsset.url} />
+      <ResumeModal open={resumeOpen} onClose={() => setResumeOpen(false)} url={resumeUrl} />
       <div className="absolute inset-0 -z-10" style={{ background: "var(--gradient-hero)" }} />
       <div className="mx-auto max-w-6xl grid md:grid-cols-[1.2fr_1fr] gap-12 items-center">
         <div>
@@ -215,7 +222,7 @@ function Hero() {
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,oklch(0.82_0.18_200/25%),transparent_60%)]" />
                 {/* the cutout — large, no frame */}
                 <img
-                  src={uditCutoutAsset.url}
+                  src={uditCutoutUrl}
                   alt="Udit Pandey"
                   className="absolute inset-x-0 bottom-0 mx-auto h-[105%] w-auto object-contain drop-shadow-[0_0_25px_oklch(0.82_0.18_200/45%)]"
                 />

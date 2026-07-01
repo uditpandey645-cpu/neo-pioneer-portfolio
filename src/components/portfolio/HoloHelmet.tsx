@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { stableAssetUrl } from "@/lib/asset-url";
 import helmetAsset from "@/assets/helmet.jpg.asset.json";
+
+const helmetUrl = stableAssetUrl(helmetAsset.url);
 
 export function HoloHelmet() {
   const [rot, setRot] = useState({ x: 0, y: 0 });
@@ -41,7 +44,7 @@ export function HoloHelmet() {
         ))}
 
         <motion.img
-          src={helmetAsset.url}
+          src={helmetUrl}
           alt="Mark 50 Iron Man Helmet build by Udit Pandey"
           className="w-full h-full object-cover"
           animate={{ rotateX: rot.x, rotateY: rot.y, scale }}
